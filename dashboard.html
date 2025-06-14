@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<div class="container">
+    <h2>Welcome {{ username }}</h2>
+    <p><strong>Balance:</strong> ₹{{ balance }}</p>
+
+    {% if success %}
+        <p class="notify">✅ Deposit successful!</p>
+    {% endif %}
+
+    <h3>Deposit</h3>
+    <div class="deposit-box">
+        <img id="qrImage" src="/static/qr_{{ username }}.png?ts={{now|default('')}}" width="200" />
+        <p><strong>Scan this QR to deposit</strong></p>
+        <p><em>QR refreshes every 60 seconds</em></p>
+        <div id="timer">QR refreshed at: {{ now }}</div>
+    </div>
+
+    <form method="POST" action="{{ url_for('confirm_deposit') }}">
+        <input type="text" name="confirm_code" placeholder="Enter Confirm Code" required>
+        <button type="submit">Confirm Deposit</button>
+    </form>
+
+    <h4>Or Upload QR Image:</h4>
+    <form method="POST" action="{{ url_for('upload_qr') }}" enctype="multipart/form-data">
+        <input type="file" name="qr_image" accept="image/*" required>
+        <button type="submit">Upload & Confirm</button>
+    </form>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <p class="notify">{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+    <h3>Saving Goal</h3>
+    <p>Current Goal: ₹{{ goal }}</p>
+    {% if balance >= goal %}
+        <p class="notify">🎉 Goal reached! 🎉</p>
+        <audio autoplay>
+            <source src="{{ url_for('static', filename='img/beep.mp3') }}" type="audio/mpeg">
+        </audio>
+    {% endif %}
+
+    <form action="/update_goal" method="POST" style="margin-top: 20px;">
+        <label for="new_goal">Update Saving Goal:</label>
+        <input type="number" id="new_goal" name="new_goal" min="1" required>
+        <button type="submit">Update Goal</button>
+    </form>
+
+    {% if request.args.get('goal_updated') == '1' %}
+    <div id="goal-notification" style="
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 6px;
+        margin: 15px auto;
+        width: fit-content;
+        font-size: 16px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        animation: fadeOut 4s ease forwards;">
+        ✅ Savings Goal Updated Successfully!
+    </div>
+    <style>
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            85% { opacity: 1; }
+            100% { opacity: 0; display: none; }
+        }
+    </style>
+    {% endif %}
+
+    <h3>Withdraw</h3>
+    <p>Visit your nearest ATM or Bank</p>
+
+    <h3>Transaction History</h3>
+    <ul>
+        {% for txn in transactions %}
+            <li>{{ txn }}</li>
+        {% else %}
+            <li>No transactions yet.</li>
+        {% endfor %}
+    </ul>
+
+    <form action="{{ url_for('logout') }}" method="post">
+        <button class="logout-btn" type="submit">Logout</button>
+    </form>
+</div>
+
+<!-- QR Auto Refresh Script -->
+<script>
+    let qrImg = document.getElementById('qrImage');
+    let timer = document.getElementById('timer');
+    function updateQR() {
+        const timestamp = new Date().getTime();
+        qrImg.src = "/static/qr_{{ username }}.png?ts=" + timestamp;
+        timer.innerText = "QR refreshed at: " + new Date().toLocaleTimeString();
+    }
+
+    setInterval(updateQR, 60000); // Refresh every 60 seconds
+    updateQR();
+</script>
+</body>
+</html>
