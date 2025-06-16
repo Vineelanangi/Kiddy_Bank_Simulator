@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kiddy Bank</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
+
+    body {
+      font-family: 'Baloo 2', cursive;
+      background: linear-gradient(to bottom, #ffccd9, #ffffff);
+      text-align: center;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 30px 20px;
+      margin: 0;
+    }
+
+    .content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    /* Bouncing coin at the top */
+    .coin {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, #FFD700 40%, #B8860B 100%);
+      position: relative;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+      animation: bounce 2s ease-in-out infinite;
+      margin-bottom: 20px;
+    }
+
+    .coin::before {
+      content: "$";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3.5rem;
+      color: #fff8b5;
+      font-weight: bold;
+      text-shadow: 0 0 3px #b8860b;
+      user-select: none;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      color: #d6336c;
+      margin: 0;
+    }
+
+    .quote {
+      font-size: 1.25rem;
+      font-style: italic;
+      color: #b3475e;
+      max-width: 350px;
+      margin: 10px auto;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding-bottom: 20px;
+    }
+
+    button {
+      background: #d6336c;
+      color: white;
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.1rem;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(214, 51, 108, 0.4);
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background: #b03056;
+    }
+
+    button:active {
+      background: #871f3f;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="content">
+    <div class="coin"></div>
+
+    <h1>Kiddy Bank</h1>
+
+    <p class="quote">"Save today, smile tomorrow — your future begins with small steps."</p>
+  </div>
+
+  <div class="buttons">
+    <button onclick="location.href='/register'">Register</button>
+    <button onclick="location.href='/login'">Login</button>
+  </div>
+
+</body>
+</html>

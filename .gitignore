@@ -1,0 +1,15 @@
+# .gitignore
+
+# Python cache
+_pycache_/
+*.pyc
+
+# Virtual environment
+venv/
+env/
+
+# Environment variables
+.env
+
+# Uploads
+static/uploads/

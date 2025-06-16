@@ -1,0 +1,81 @@
+/* Register Page Background and General Styling */
+
+body {
+  font-family: 'Baloo 2', cursive;
+  background: linear-gradient(135deg, #ffccd9 0%, #ffffff 100%);
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  color: #333;
+}
+
+.register-container {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(214, 51, 108, 0.25);
+  padding: 40px 30px;
+  width: 350px;
+  max-width: 90vw;
+  text-align: center;
+}
+
+.register-container h2 {
+  color: #d6336c;
+  margin-bottom: 25px;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 12px 0 20px;
+  border: 1.8px solid #f9a1bb;
+  border-radius: 30px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border-color: #d6336c;
+  box-shadow: 0 0 8px rgba(214, 51, 108, 0.5);
+}
+
+button {
+  background: #d6336c;
+  color: white;
+  font-family: 'Baloo 2', cursive;
+  font-size: 1.1rem;
+  padding: 12px 0;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(214, 51, 108, 0.4);
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background: #b03056;
+}
+
+button:active {
+  background: #871f3f;
+}
+
+a {
+  display: inline-block;
+  margin-top: 18px;
+  color: #d6336c;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+a:hover {
+  text-decoration: underline;
+}
